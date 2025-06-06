@@ -161,9 +161,7 @@ public class Login extends JFrame {
         panel.add(senha, gbc);
 
 
-
-
-        // flex-grow
+        // elemento que empurra à esquerda
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
