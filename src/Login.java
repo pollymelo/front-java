@@ -17,10 +17,11 @@ public class Login extends JFrame {
         //cor de fundo do panel
         panel.setBackground(new Color(240, 240, 240));
 
+        //inputs de senha e usuário
+        JTextField usuario = new JTextField(40 );
+        JPasswordField senha = new JPasswordField(40 );
 
-        JTextField usuario = new JTextField(20);
-        JPasswordField senha = new JPasswordField(20);
-
+        //tipo da fonte
         usuario.setFont(new Font("Arial", Font.PLAIN, 20));
         senha.setFont(new Font("Arial", Font.PLAIN, 20));
 
@@ -55,7 +56,7 @@ public class Login extends JFrame {
 
 
         //placeholder senha
-        final String SENHA_PLACEHOLDER = "Digite sua senha";
+        final String SENHA_PLACEHOLDER = "********";
         char defaultEchoChar = senha.getEchoChar();
         senha.setEchoChar((char) 0);
         senha.setText(SENHA_PLACEHOLDER);
@@ -87,28 +88,53 @@ public class Login extends JFrame {
 //        usuario.setForeground(PLACEHOLDER_COLOR);
 
 
+//        JButton logar = new JButton("Logar");
+//        JButton cadastrar = new JButton("Cadastrar");
+//        Font fontBotoes = (new Font("Arial", Font.BOLD, 20));
+//        logar.setFont(fontBotoes);
+//        cadastrar.setFont(fontBotoes);
+//        logar.setForeground(Color.WHITE);
+//        cadastrar.setForeground(Color.WHITE);
+//        logar.setBackground(Color.decode("#1C2F5C"));
+//        cadastrar.setBackground(Color.decode("#1C2F5C"));
+
         JButton logar = new JButton("Logar");
-        JButton cadastrar = new JButton("Cadastrar");
-        Font fontBotoes = (new Font("Arial", Font.BOLD, 20));
-        logar.setFont(fontBotoes);
-        cadastrar.setFont(fontBotoes);
-        logar.setForeground(Color.WHITE);
-        cadastrar.setForeground(Color.WHITE);
-        logar.setBackground(Color.decode("#1C2F5C"));
-        cadastrar.setBackground(Color.decode("#1C2F5C"));
+        JButton cancelar = new JButton("Cancelar");
+
+
+
+        //texto esqueci senha
+        JLabel esqueciSenha = new JLabel("<html><u>Esqueci minha senha</u></html>");
+        esqueciSenha.setFont(new Font("Arial", Font.PLAIN, 14));
+        esqueciSenha.setForeground(Color.decode(("#1C2F5C")));
+        esqueciSenha.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        esqueciSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                // TODO: Adicionar aqui a lógica para abrir a tela de recuperação de senha
+                JOptionPane.showMessageDialog(null, "Funcionalidade 'Esqueci minha senha' a ser implementada.");
+            }
+        });
 
         add(panel);
 
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
+
+        gbc.gridy = 0;
+        gbc.weighty = 1.0;
+        panel.add(new JLabel(""), gbc);
+        gbc.weighty = 0.0;
+
         //titulo
 
         JLabel Titulo = new JLabel("Realize o Login");
         Titulo.setFont(new Font("Arial", Font.BOLD, 32));
+        Titulo.setForeground(Color.decode("#1C2F5C"));
 
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.insets = new Insets(20, 10, 30, 10);
@@ -118,23 +144,30 @@ public class Login extends JFrame {
         //titulo usuario
         JLabel TituloUsuario = new JLabel("Usuário:");
         TituloUsuario.setFont(new Font("Arial", Font.PLAIN, 18));
+        TituloUsuario.setForeground(Color.decode("#1C2F5C"));
+
+
 
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(10, 20, 5, 5);
+
+        //posicao do Titulo do usuario
         panel.add(TituloUsuario, gbc);
 
 
         //input do usuário
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 0.0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0, 20, 10, 20);
+
+        //posicao do input usuario
         panel.add(usuario, gbc);
 
 
@@ -142,28 +175,77 @@ public class Login extends JFrame {
         //senha titulo
         JLabel TituloSenha = new JLabel("Senha:");
         TituloSenha.setFont(new Font("Arial", Font.PLAIN, 18));
+        TituloSenha.setForeground(Color.decode("#1C2F5C"));
 
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(10, 20, 5, 5);
+
+        //posicao titulo senha
         panel.add(TituloSenha, gbc);
 
         //input senha
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 0.0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0, 20, 10, 20);
+
+        //posicao input senha
         panel.add(senha, gbc);
 
+        //esqueciSenha
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(5, 20, 20, 20);
+
+        //posicao do link esqueci senha
+        panel.add(esqueciSenha, gbc);
+
+
+        //Panel dos botoes
+        JPanel buttonsLogarCancelarPanel = new JPanel();
+        buttonsLogarCancelarPanel.setBackground(panel.getBackground());
+        buttonsLogarCancelarPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
+
+        //botoes logar e cancelar
+        buttonsLogarCancelarPanel.add(logar);
+        buttonsLogarCancelarPanel.add(cancelar);
+
+
+        //estilizacao dos botoes Logar e cancelar
+        Font buttonsFontLogarCancelar = (new Font("Arial", Font.BOLD, 20));
+        logar.setFont(buttonsFontLogarCancelar);
+        cancelar.setFont(buttonsFontLogarCancelar);
+
+        logar.setForeground(Color.WHITE);
+        cancelar.setForeground(Color.WHITE);
+
+        logar.setBackground(Color.decode("#1C2F5C"));
+        cancelar.setBackground(Color.decode("#1C2F5C"));
+
+        logar.setOpaque(true);
+        logar.setBorderPainted(false);
+
+        cancelar.setOpaque(true);
+        cancelar.setBorderPainted(false);
+
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(10, 15, 20, 20);
+        panel.add(buttonsLogarCancelarPanel, gbc);
 
         // elemento que empurra à esquerda
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 8;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
