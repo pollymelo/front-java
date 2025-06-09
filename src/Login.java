@@ -1,41 +1,67 @@
+import components.Footer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Login extends JFrame {
-    public Login () {
+
+
+    public Login() {
 
         setTitle("Recanto do Sagrado Coração");
         setSize(1920, 1080);
-        JPanel panel = new JPanel();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setResizable(false);
 
+        setLayout(new BorderLayout());
+        // Panel principal
+        JPanel backgroundPanel = new JPanel(new GridBagLayout());
 
-        //cor de fundo do panel
-        panel.setBackground(new Color(240, 240, 240));
+        // cor de fundo
+        backgroundPanel.setBackground(new Color(240, 240, 240));
 
-        //inputs de senha e usuário
-        JTextField usuario = new JTextField(40 );
-        JPasswordField senha = new JPasswordField(40 );
+        // --- secao dos componentes ---
 
-        //tipo da fonte
-        usuario.setFont(new Font("Arial", Font.PLAIN, 20));
-        senha.setFont(new Font("Arial", Font.PLAIN, 20));
+        // títulos
+        JLabel Titulo = new JLabel("Realize o login");
+        Titulo.setFont(new Font("Arial", Font.BOLD, 32));
+        Titulo.setForeground(Color.decode("#1C2F5C"));
 
-        usuario.setBorder(BorderFactory.createLineBorder(Color.decode("#1C2F5C"), 3));
-        senha.setBorder(BorderFactory.createLineBorder(Color.decode("#1C2F5C"), 3));
+        JLabel TituloUsuario = new JLabel("Usuário:");
+        TituloUsuario.setFont(new Font("Arial", Font.BOLD, 28));
+        TituloUsuario.setForeground(Color.decode("#1C2F5C"));
 
-        //placeholder usuario
+        JLabel TituloSenha = new JLabel("Senha:");
+        TituloSenha.setFont(new Font("Arial", Font.BOLD, 28));
+        TituloSenha.setForeground(Color.decode("#1C2F5C"));
+
+        // inputs senha e usuário
+        JTextField usuario = new JTextField();
+        JPasswordField senha = new JPasswordField();
+
+        // estilizacao inputs
+        Font fontCampos = new Font("Arial", Font.PLAIN, 18);
+        usuario.setFont(fontCampos);
+        senha.setFont(fontCampos);
+        usuario.setBorder(BorderFactory.createLineBorder(Color.decode("#1C2F5C"), 2));
+        senha.setBorder(BorderFactory.createLineBorder(Color.decode("#1C2F5C"), 2));
+        Dimension inputSize = new Dimension(380, 45);
+        usuario.setPreferredSize(inputSize);
+        senha.setPreferredSize(inputSize);
+
+        // placeholder usuario
         final String USUARIO_PLACEHOLDER = "Administrador Painel";
         final Color PLACEHOLDER_COLOR = Color.GRAY;
         final Color TEXT_COLOR = Color.BLACK;
-
         usuario.setText(USUARIO_PLACEHOLDER);
         usuario.setForeground(PLACEHOLDER_COLOR);
-
         usuario.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -54,19 +80,16 @@ public class Login extends JFrame {
             }
         });
 
-
-        //placeholder senha
+        // placeholder senha
         final String SENHA_PLACEHOLDER = "********";
         char defaultEchoChar = senha.getEchoChar();
         senha.setEchoChar((char) 0);
         senha.setText(SENHA_PLACEHOLDER);
         senha.setForeground(PLACEHOLDER_COLOR);
-
         senha.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                String currentPassword = new String(senha.getPassword());
-                if (currentPassword.equals(SENHA_PLACEHOLDER)) {
+                if (new String(senha.getPassword()).equals(SENHA_PLACEHOLDER)) {
                     senha.setText("");
                     senha.setEchoChar(defaultEchoChar);
                     senha.setForeground(TEXT_COLOR);
@@ -83,184 +106,112 @@ public class Login extends JFrame {
             }
         });
 
-
-//        usuario.setText(USUARIO_PLACEHOLDER);
-//        usuario.setForeground(PLACEHOLDER_COLOR);
-
-
-//        JButton logar = new JButton("Logar");
-//        JButton cadastrar = new JButton("Cadastrar");
-//        Font fontBotoes = (new Font("Arial", Font.BOLD, 20));
-//        logar.setFont(fontBotoes);
-//        cadastrar.setFont(fontBotoes);
-//        logar.setForeground(Color.WHITE);
-//        cadastrar.setForeground(Color.WHITE);
-//        logar.setBackground(Color.decode("#1C2F5C"));
-//        cadastrar.setBackground(Color.decode("#1C2F5C"));
-
-        JButton logar = new JButton("Logar");
-        JButton cancelar = new JButton("Cancelar");
-
-
-
-        //texto esqueci senha
+        // esqueciSenha
         JLabel esqueciSenha = new JLabel("<html><u>Esqueci minha senha</u></html>");
-        esqueciSenha.setFont(new Font("Arial", Font.PLAIN, 14));
-        esqueciSenha.setForeground(Color.decode(("#1C2F5C")));
+        esqueciSenha.setFont(new Font("Arial", Font.PLAIN, 16));
+        esqueciSenha.setForeground(Color.decode("#1C2F5C"));
         esqueciSenha.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        esqueciSenha.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                // TODO: Adicionar aqui a lógica para abrir a tela de recuperação de senha
+        esqueciSenha.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
                 JOptionPane.showMessageDialog(null, "Funcionalidade 'Esqueci minha senha' a ser implementada.");
             }
         });
 
-        add(panel);
+        // botoes
+        JButton logar = new JButton("Logar");
+        JButton cancelar = new JButton("Cancelar");
 
-        panel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-
-
-        gbc.gridy = 0;
-        gbc.weighty = 1.0;
-        panel.add(new JLabel(""), gbc);
-        gbc.weighty = 0.0;
-
-        //titulo
-
-        JLabel Titulo = new JLabel("Realize o Login");
-        Titulo.setFont(new Font("Arial", Font.BOLD, 32));
-        Titulo.setForeground(Color.decode("#1C2F5C"));
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.NORTHWEST;
-        gbc.insets = new Insets(20, 10, 30, 10);
-        panel.add(Titulo, gbc);
-
-
-        //titulo usuario
-        JLabel TituloUsuario = new JLabel("Usuário:");
-        TituloUsuario.setFont(new Font("Arial", Font.PLAIN, 18));
-        TituloUsuario.setForeground(Color.decode("#1C2F5C"));
-
-
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(10, 20, 5, 5);
-
-        //posicao do Titulo do usuario
-        panel.add(TituloUsuario, gbc);
-
-
-        //input do usuário
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.weightx = 0.0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(0, 20, 10, 20);
-
-        //posicao do input usuario
-        panel.add(usuario, gbc);
-
-
-
-        //senha titulo
-        JLabel TituloSenha = new JLabel("Senha:");
-        TituloSenha.setFont(new Font("Arial", Font.PLAIN, 18));
-        TituloSenha.setForeground(Color.decode("#1C2F5C"));
-
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.gridwidth = 1;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(10, 20, 5, 5);
-
-        //posicao titulo senha
-        panel.add(TituloSenha, gbc);
-
-        //input senha
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.weightx = 0.0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(0, 20, 10, 20);
-
-        //posicao input senha
-        panel.add(senha, gbc);
-
-        //esqueciSenha
-        gbc.gridx = 0;
-        gbc.gridy = 6;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(5, 20, 20, 20);
-
-        //posicao do link esqueci senha
-        panel.add(esqueciSenha, gbc);
-
-
-        //Panel dos botoes
-        JPanel buttonsLogarCancelarPanel = new JPanel();
-        buttonsLogarCancelarPanel.setBackground(panel.getBackground());
-        buttonsLogarCancelarPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
-
-        //botoes logar e cancelar
-        buttonsLogarCancelarPanel.add(logar);
-        buttonsLogarCancelarPanel.add(cancelar);
-
-
-        //estilizacao dos botoes Logar e cancelar
-        Font buttonsFontLogarCancelar = (new Font("Arial", Font.BOLD, 20));
-        logar.setFont(buttonsFontLogarCancelar);
-        cancelar.setFont(buttonsFontLogarCancelar);
-
+        // estilizacao dos botoes
+        Font fontBotoes = new Font("Arial", Font.BOLD, 18);
+        logar.setFont(fontBotoes);
+        cancelar.setFont(fontBotoes);
         logar.setForeground(Color.WHITE);
         cancelar.setForeground(Color.WHITE);
-
         logar.setBackground(Color.decode("#1C2F5C"));
         cancelar.setBackground(Color.decode("#1C2F5C"));
-
+        Dimension buttonSize = new Dimension(180, 50);
+        logar.setPreferredSize(buttonSize);
+        cancelar.setPreferredSize(buttonSize);
         logar.setOpaque(true);
         logar.setBorderPainted(false);
-
         cancelar.setOpaque(true);
         cancelar.setBorderPainted(false);
 
-        gbc.gridx = 0;
-        gbc.gridy = 7;
-        gbc.gridwidth = 2;
+        // --- inicio do layout ---
+
+        // Painel do Formulário que conterá todos os elementos
+        JPanel formPanel = new JPanel(new GridBagLayout());
+        formPanel.setBackground(backgroundPanel.getBackground());
+        GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(10, 15, 20, 20);
-        panel.add(buttonsLogarCancelarPanel, gbc);
 
-        // elemento que empurra à esquerda
+        // titulo
         gbc.gridx = 0;
-        gbc.gridy = 8;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.BOTH;
-        panel.add(new JLabel(""), gbc);
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(0, 0, 40, 0);
+        formPanel.add(Titulo, gbc);
 
-//        panel.setLayout(new GridBagLayout());
-//        panel.add(logar);
-//        panel.add(cadastrar);
-//        panel.add(usuario);
-//        panel.add(senha);
+        // titulo usuario
+        gbc.gridy = 1;
+        gbc.insets = new Insets(0, 0, 10, 0);
+        formPanel.add(TituloUsuario, gbc);
 
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // input do usuário
+        gbc.gridy = 2;
+        gbc.insets = new Insets(0, 0, 40, 0);
+        formPanel.add(usuario, gbc);
+
+        // senha titulo
+        gbc.gridy = 3;
+        gbc.insets = new Insets(0, 0, 10, 0);
+        formPanel.add(TituloSenha, gbc);
+
+        // input senha
+        gbc.gridy = 4;
+        gbc.insets = new Insets(0, 0, 15, 0);
+        formPanel.add(senha, gbc);
+
+        // esqueciSenha
+        gbc.gridy = 5;
+        gbc.insets = new Insets(0, 0, 40, 0);
+        formPanel.add(esqueciSenha, gbc);
+
+        // panel dos botoes
+        JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 20, 0));
+        buttonsPanel.setBackground(formPanel.getBackground());
+        buttonsPanel.add(logar);
+        buttonsPanel.add(cancelar);
+
+        gbc.gridy = 6;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        formPanel.add(buttonsPanel, gbc);
+
+        //  posicionamento à esquerda e p cima
+        GridBagConstraints backgroundConstraints = new GridBagConstraints();
+        backgroundConstraints.gridx = 0;
+        backgroundConstraints.gridy = 0;
+        backgroundConstraints.anchor = GridBagConstraints.NORTHWEST;
+
+        backgroundConstraints.insets = new Insets(150, 120, 0, 0);
+        backgroundPanel.add(formPanel, backgroundConstraints);
+
+        // empurra espaco restante a direita abaixo
+        GridBagConstraints pusher = new GridBagConstraints();
+        pusher.gridx = 1;
+        pusher.gridy = 0;
+        pusher.weightx = 1.0;
+        pusher.weighty = 1.0;
+        pusher.fill = GridBagConstraints.BOTH;
+        backgroundPanel.add(new JLabel(""), pusher);
+
+        Footer footerPanel = new Footer();
+        add(backgroundPanel, BorderLayout.CENTER);
+        add(footerPanel, BorderLayout.SOUTH);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new Login().setVisible(true));
 
     }
 }
