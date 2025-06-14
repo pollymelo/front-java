@@ -13,7 +13,6 @@ public class Geral extends JFrame {
     private static final Color COR_FUNDO_ESCURO = new Color(0x333333);
     private static final Color COR_FUNDO_CLARO = new Color(0xF0F0F0);
     private static final Color COR_RODAPE = new Color(0x2A3A68);
-    // Novas cores para o painel
     private static final Color COR_LETRA_PAINEL = new Color(0x666666);
     private static final Color COR_VERMELHO_IDOSAS = new Color(0xD9534F);
     private static final Color COR_VERDE_ENFERMARIA = new Color(0x5CB85C);
@@ -23,24 +22,21 @@ public class Geral extends JFrame {
     }
 
     private void initUI() {
+        // ... (código do initUI continua igual) ...
         setTitle("Tela 2 - Geral");
         setSize(900, 700);
         setMinimumSize(new Dimension(800, 600));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
         setLayout(new BorderLayout());
         getContentPane().setBackground(COR_FUNDO_ESCURO);
-
         add(createHeaderPanel(), BorderLayout.NORTH);
         add(createFooterPanel(), BorderLayout.SOUTH);
-
-        // NOVIDADE: Adicionamos o painel principal no centro (CENTER)
         add(createMainPanel(), BorderLayout.CENTER);
     }
 
     private JPanel createHeaderPanel() {
-        // ... (método continua igual ao do passo anterior) ...
+        // ... (código do createHeaderPanel continua igual) ...
         JPanel headerPanel = new JPanel(new BorderLayout(10, 10));
         headerPanel.setBackground(COR_FUNDO_ESCURO);
         headerPanel.setBorder(new EmptyBorder(15, 25, 15, 25));
@@ -84,7 +80,7 @@ public class Geral extends JFrame {
     }
 
     private JPanel createFooterPanel() {
-        // ... (método continua igual ao do passo anterior) ...
+        // ... (código do createFooterPanel continua igual) ...
         JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         footerPanel.setBackground(COR_RODAPE);
         footerPanel.setPreferredSize(new Dimension(getWidth(), 40));
@@ -97,55 +93,82 @@ public class Geral extends JFrame {
         return footerPanel;
     }
 
-    // NOVO MÉTODO: createMainPanel()
+    // MÉTODO ATUALIZADO: createMainPanel()
     private JPanel createMainPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
         mainPanel.setBackground(COR_FUNDO_CLARO);
         mainPanel.setBorder(new EmptyBorder(20, 40, 20, 40));
 
-        // Painel do topo: Título + Stats
+        // Painel do topo: Título + Stats (continua igual)
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setOpaque(false);
-
         JLabel titleLabel = new JLabel("Painel Administrativo");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
         titleLabel.setForeground(COR_LETRA_PAINEL);
-        titleLabel.setBorder(new EmptyBorder(0, 0, 20, 0)); // Margem inferior
-
-        // Painel das estatísticas
+        titleLabel.setBorder(new EmptyBorder(0, 0, 20, 0));
         JPanel statsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 0));
         statsPanel.setOpaque(false);
         statsPanel.add(createStatItem("Idosas", "100", COR_VERMELHO_IDOSAS));
         statsPanel.add(createStatItem("Enfermaria", "20", COR_VERDE_ENFERMARIA));
         statsPanel.add(createStatItem("Visitas", "2", COR_VERDE_ENFERMARIA));
-
         topPanel.add(titleLabel, BorderLayout.NORTH);
         topPanel.add(statsPanel, BorderLayout.CENTER);
-
         mainPanel.add(topPanel, BorderLayout.NORTH);
+
+        // NOVIDADE: Painel da grade de botões
+        JPanel gridPanel = new JPanel(new GridLayout(2, 4, 20, 20)); // 2 linhas, 4 colunas, com espaçamento
+        gridPanel.setOpaque(false);
+
+        gridPanel.add(createDashboardButton("Idosas", "idosas.png"));
+        gridPanel.add(createDashboardButton("Família", "familia.png"));
+        gridPanel.add(createDashboardButton("Documentos", "documentos.png"));
+        gridPanel.add(createDashboardButton("Eventos Sentinelas", "eventos.png"));
+        gridPanel.add(createDashboardButton("Prontuários", "prontuarios.png"));
+        gridPanel.add(createDashboardButton("Consultas", "consultas.png"));
+        gridPanel.add(createDashboardButton("Vacinas", "vacinas.png"));
+        gridPanel.add(createDashboardButton("Relatórios", "relatorios.png"));
+
+        // Adiciona a grade ao centro do painel principal
+        mainPanel.add(gridPanel, BorderLayout.CENTER);
+
         return mainPanel;
     }
 
-    // NOVO MÉTODO: createStatItem()
     private JPanel createStatItem(String title, String value, Color valueColor) {
+        // ... (código do createStatItem continua igual) ...
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setOpaque(false);
-
         JLabel titleLabel = new JLabel(title);
         titleLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         titleLabel.setForeground(COR_LETRA_PAINEL);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
         JLabel valueLabel = new JLabel(value);
         valueLabel.setFont(new Font("Arial", Font.BOLD, 20));
         valueLabel.setForeground(valueColor);
         valueLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
         panel.add(titleLabel);
         panel.add(valueLabel);
-
         return panel;
+    }
+
+    private JButton createDashboardButton(String text, String iconName) {
+
+        ImageIcon icon = createScaledIcon("/assets/" + iconName, 48, 48);
+
+        JButton button = new JButton(text, icon);
+
+        button.setVerticalTextPosition(SwingConstants.BOTTOM);
+        button.setHorizontalTextPosition(SwingConstants.CENTER);
+
+        button.setFont(new Font("Arial", Font.PLAIN, 14));
+        button.setForeground(COR_LETRA_PAINEL);
+        button.setBackground(Color.WHITE);
+        button.setBorder(BorderFactory.createLineBorder(new Color(0xDDDDDD)));
+        button.setFocusPainted(false);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        return button;
     }
 
 
