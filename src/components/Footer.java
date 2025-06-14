@@ -1,6 +1,8 @@
 package components;
 
+import javax.swing.BorderFactory;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +13,9 @@ public class Footer extends JPanel {
         //cor fundo panel;
         this.setBackground(Color.decode("#1C2F5C"));
         //altura panel
-        this.setPreferredSize(new Dimension(0, 35));
+
+        this.setPreferredSize(new Dimension(1, 35));
+        this.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 
         // label date
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");

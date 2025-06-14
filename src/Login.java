@@ -15,10 +15,16 @@ public class Login extends JFrame {
     public Login() {
 
         setTitle("Recanto do Sagrado Coração");
-        setSize(1920, 1080);
+        setSize(1450, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
+
+        JPanel imagePanel = new JPanel(new BorderLayout());
+        imagePanel.setBackground(Color.WHITE);
+        ImageIcon logoIcon = new ImageIcon(getClass().getResource("/assets/logo.png"));
+        JLabel logoLabel = new JLabel(logoIcon);
+        imagePanel.add(logoLabel, BorderLayout.CENTER);
 
         setLayout(new BorderLayout());
         // Panel principal
