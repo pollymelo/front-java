@@ -1,10 +1,12 @@
 package components.Geral;
 
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Geral extends JFrame {
 
 
@@ -19,6 +21,7 @@ public class Geral extends JFrame {
     private void initUI() {
         setTitle("Tela 2 - Geral");
         setSize(900, 700);
+        setMinimumSize(new Dimension(800, 600));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -27,15 +30,17 @@ public class Geral extends JFrame {
 
         add(createHeaderPanel(), BorderLayout.NORTH);
 
+        // NOVIDADE: Adicionamos o rodapé na parte de baixo (SOUTH) da janela
+        add(createFooterPanel(), BorderLayout.SOUTH);
     }
 
     private JPanel createHeaderPanel() {
+        // Este método continua igual ao do passo anterior
         JPanel headerPanel = new JPanel(new BorderLayout(10, 10));
         headerPanel.setBackground(COR_FUNDO_ESCURO);
         headerPanel.setBorder(new EmptyBorder(15, 25, 15, 25));
 
         // --- Lado Esquerdo: Logo e Texto ---
-        // OBS: O ícone não vai aparecer ainda, pois os métodos de ícone estão vazios.
         ImageIcon logoIcon = createScaledIcon("/assets/logo.png", 50, 50);
         JLabel logoLabel = new JLabel(logoIcon);
 
@@ -87,17 +92,27 @@ public class Geral extends JFrame {
         return headerPanel;
     }
 
+    private JPanel createFooterPanel() {
+        JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        footerPanel.setBackground(COR_RODAPE);
+        footerPanel.setPreferredSize(new Dimension(getWidth(), 40));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        JLabel dateTimeLabel = new JLabel(sdf.format(new Date()));
+        dateTimeLabel.setForeground(Color.WHITE);
+        dateTimeLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        dateTimeLabel.setBorder(new EmptyBorder(0, 0, 0, 25)); // Margem à direita
+
+        footerPanel.add(dateTimeLabel);
+        return footerPanel;
+    }
 
     private ImageIcon createIcon(String path) {
-
         return null;
     }
     private ImageIcon createScaledIcon(String path, int width, int height) {
-
         return null;
     }
-
-
 
 
     public static void main(String[] args) {
@@ -106,5 +121,4 @@ public class Geral extends JFrame {
             ex.setVisible(true);
         });
     }
-
 }
