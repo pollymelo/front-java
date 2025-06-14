@@ -101,7 +101,7 @@ public class Geral extends JFrame {
         titleLabel.setBorder(new EmptyBorder(0, 0, 20, 0));
         JPanel statsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 0));
         statsPanel.setOpaque(false);
-        statsPanel.add(createStatItem("Idosas", "100", COR_VERMELHO_IDOSAS));
+        statsPanel.add(createStatItem("Pacientes", "100", COR_VERMELHO_IDOSAS));
         statsPanel.add(createStatItem("Enfermaria", "20", COR_VERDE_ENFERMARIA));
         statsPanel.add(createStatItem("Visitas", "2", COR_VERDE_ENFERMARIA));
         topPanel.add(titleLabel, BorderLayout.NORTH);
