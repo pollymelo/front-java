@@ -9,7 +9,6 @@ import java.util.Date;
 
 public class Geral extends JFrame {
 
-    // --- CORES USADAS NO PROJETO ---
     private static final Color COR_FUNDO_ESCURO = new Color(0x333333);
     private static final Color COR_FUNDO_CLARO = new Color(0xF0F0F0);
     private static final Color COR_RODAPE = new Color(0x2A3A68);
@@ -22,7 +21,6 @@ public class Geral extends JFrame {
     }
 
     private void initUI() {
-        // ... (código do initUI continua igual) ...
         setTitle("Tela 2 - Geral");
         setSize(900, 700);
         setMinimumSize(new Dimension(800, 600));
@@ -36,7 +34,6 @@ public class Geral extends JFrame {
     }
 
     private JPanel createHeaderPanel() {
-        // ... (código do createHeaderPanel continua igual) ...
         JPanel headerPanel = new JPanel(new BorderLayout(10, 10));
         headerPanel.setBackground(COR_FUNDO_ESCURO);
         headerPanel.setBorder(new EmptyBorder(15, 25, 15, 25));
@@ -80,7 +77,6 @@ public class Geral extends JFrame {
     }
 
     private JPanel createFooterPanel() {
-        // ... (código do createFooterPanel continua igual) ...
         JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         footerPanel.setBackground(COR_RODAPE);
         footerPanel.setPreferredSize(new Dimension(getWidth(), 40));
@@ -93,13 +89,10 @@ public class Geral extends JFrame {
         return footerPanel;
     }
 
-    // MÉTODO ATUALIZADO: createMainPanel()
     private JPanel createMainPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
         mainPanel.setBackground(COR_FUNDO_CLARO);
         mainPanel.setBorder(new EmptyBorder(20, 40, 20, 40));
-
-        // Painel do topo: Título + Stats (continua igual)
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setOpaque(false);
         JLabel titleLabel = new JLabel("Painel Administrativo");
@@ -114,11 +107,8 @@ public class Geral extends JFrame {
         topPanel.add(titleLabel, BorderLayout.NORTH);
         topPanel.add(statsPanel, BorderLayout.CENTER);
         mainPanel.add(topPanel, BorderLayout.NORTH);
-
-        // NOVIDADE: Painel da grade de botões
-        JPanel gridPanel = new JPanel(new GridLayout(2, 4, 20, 20)); // 2 linhas, 4 colunas, com espaçamento
+        JPanel gridPanel = new JPanel(new GridLayout(2, 4, 20, 20));
         gridPanel.setOpaque(false);
-
         gridPanel.add(createDashboardButton("Idosas", "idosas.png"));
         gridPanel.add(createDashboardButton("Família", "familia.png"));
         gridPanel.add(createDashboardButton("Documentos", "documentos.png"));
@@ -127,15 +117,11 @@ public class Geral extends JFrame {
         gridPanel.add(createDashboardButton("Consultas", "consultas.png"));
         gridPanel.add(createDashboardButton("Vacinas", "vacinas.png"));
         gridPanel.add(createDashboardButton("Relatórios", "relatorios.png"));
-
-        // Adiciona a grade ao centro do painel principal
         mainPanel.add(gridPanel, BorderLayout.CENTER);
-
         return mainPanel;
     }
 
     private JPanel createStatItem(String title, String value, Color valueColor) {
-        // ... (código do createStatItem continua igual) ...
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setOpaque(false);
@@ -153,30 +139,35 @@ public class Geral extends JFrame {
     }
 
     private JButton createDashboardButton(String text, String iconName) {
-
         ImageIcon icon = createScaledIcon("/assets/" + iconName, 48, 48);
-
         JButton button = new JButton(text, icon);
-
         button.setVerticalTextPosition(SwingConstants.BOTTOM);
         button.setHorizontalTextPosition(SwingConstants.CENTER);
-
         button.setFont(new Font("Arial", Font.PLAIN, 14));
         button.setForeground(COR_LETRA_PAINEL);
         button.setBackground(Color.WHITE);
         button.setBorder(BorderFactory.createLineBorder(new Color(0xDDDDDD)));
         button.setFocusPainted(false);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
         return button;
     }
 
-
     private ImageIcon createIcon(String path) {
-        return null;
+        URL url = getClass().getResource(path);
+        if (url == null) {
+            System.err.println("Erro ao carregar o recurso: " + path);
+            return null;
+        }
+        return new ImageIcon(url);
     }
+
     private ImageIcon createScaledIcon(String path, int width, int height) {
-        return null;
+        ImageIcon originalIcon = createIcon(path);
+        if (originalIcon == null) {
+            return null;
+        }
+        Image scaledImage = originalIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        return new ImageIcon(scaledImage);
     }
 
     public static void main(String[] args) {
