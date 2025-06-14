@@ -5,6 +5,11 @@ import java.awt.*;
 
 public class Geral extends JFrame {
 
+
+    private static final Color COR_FUNDO_ESCURO = new Color(0x333333);
+    private static final Color COR_FUNDO_CLARO = new Color(0xF0F0F0);
+    private static final Color COR_RODAPE = new Color(0x2A3A68);
+
     public Geral() {
         initUI();
     }
@@ -14,7 +19,14 @@ public class Geral extends JFrame {
         setSize(900, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        setLayout(new BorderLayout());
+        getContentPane().setBackground(COR_FUNDO_ESCURO);
+
+
     }
+
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -22,4 +34,5 @@ public class Geral extends JFrame {
             ex.setVisible(true);
         });
     }
+
 }
